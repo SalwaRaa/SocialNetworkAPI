@@ -28,7 +28,7 @@ namespace SocialNetworkAPI
         {
             services.AddControllers().AddNewtonsoftJson();
 
-            //when it wants a IuserRepo give it a UserRepo
+            //(DI container) when it wants a IuserRepo give it a UserRepo
             services.AddSingleton<IUserRepository, DictionaryUserRepository>();
             //when it wants a IpostRepo give it a postRepo
             services.AddSingleton<IPostRepository, DictionaryPostRepository>();

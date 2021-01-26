@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SocialNetworkAPI.Repositories
 {
+    //DictionaryPostRepository has been implemented as an interface of IPostRepository
     public class DictionaryPostRepository : IPostRepository
     {
-        public Dictionary<Guid, Post> _post = new Dictionary<Guid, Post>();
+        public readonly Dictionary<Guid, Post> _post = new Dictionary<Guid, Post>();
     }
 }
