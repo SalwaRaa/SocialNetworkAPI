@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace SocialNetworkAPI.Controllers
 {
+    /// <summary>
+    /// Controller with working with posts
+    /// </summary>
     [ApiController]
     [Route("api/users")]
    
@@ -17,12 +20,16 @@ namespace SocialNetworkAPI.Controllers
         //cons
         private readonly IUserRepository _userRepository;
 
-        //public UsersController(IUserRepository userRepository)
-        //{
-        //    _userRepository = userRepository;
-        //}
+        public UsersController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
-
+        /// <summary>
+        /// Creates a new user. Using the userDto
+        /// </summary>
+        ///<param name="userDto"></param>
+        /// <returns></returns>
         [HttpPost]
         //passes in UserDto so I dont pass in the Id
         public ActionResult CreateUser(UserDto userDto)
@@ -41,14 +48,22 @@ namespace SocialNetworkAPI.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
 
-
+        /// <summary>
+        /// Gets all existing users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
             return _userRepository.GetUsers();
         }
 
-
+        /// <summary>
+        /// Gets a user with a specific id
+        /// </summary>
+        /// <param name="id">The id of a specific user</param>
+        /// <response code="200">Returns the user with the given id</response>
+        /// <response code="404">If no user with the given id was found</response>
         [HttpGet]
         [Route("{id:guid}")]
         //ActionResult should always be used except for the Get collections that only returns OK. 

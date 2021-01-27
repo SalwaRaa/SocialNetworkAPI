@@ -8,6 +8,10 @@ namespace SocialNetworkAPI.Models
 {
     public class User : UserDto
     {
+        /// <summary>
+        /// A unique guid genereated identifier for a user
+        /// </summary>
+        /// <example>7b87d7bb-b0cd-4f1b-812d-c80f9d400sdy</example>
         public Guid Id { get; set; }
 
         // empty const for the test model in userRepo
