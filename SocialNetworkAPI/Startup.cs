@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SocialNetworkAPI.Repositories;
+using SocialNetworkAPI.Services;
 
 namespace SocialNetworkAPI
 {
@@ -32,6 +33,7 @@ namespace SocialNetworkAPI
             services.AddSingleton<IUserRepository, DictionaryUserRepository>();
             //when it wants a IpostRepo give it a postRepo
             services.AddSingleton<IPostRepository, DictionaryPostRepository>();
+            services.AddSingleton<IPostService, PostService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

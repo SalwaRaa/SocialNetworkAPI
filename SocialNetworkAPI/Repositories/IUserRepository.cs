@@ -8,11 +8,8 @@ namespace SocialNetworkAPI.Repositories
     public interface IUserRepository
     {
         User Add(UserDto userDto);
-
         IEnumerable<User> GetUsers();
-
         User GetUserById(Guid id);
-
         bool NonUniqueUserName(UserDto userDto);
     }
 }

@@ -17,10 +17,10 @@ namespace SocialNetworkAPI.Controllers
         //cons
         private readonly IUserRepository _userRepository;
 
-        public UsersController(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
+        //public UsersController(IUserRepository userRepository)
+        //{
+        //    _userRepository = userRepository;
+        //}
 
 
         [HttpPost]
