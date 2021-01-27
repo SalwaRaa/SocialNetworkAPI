@@ -10,11 +10,13 @@ namespace SocialNetworkAPI.Models
     {
         public Guid Id { get; set; }
 
-        // empty const  for the test model in userRepo
+        // empty const for the test model in userRepo
         public User()
         {
 
         }
+
+        //have to create a const since the parent{User} cant become one of the kids{UserDto}
         public User(UserDto userDto)
         {
             Id = Guid.NewGuid();

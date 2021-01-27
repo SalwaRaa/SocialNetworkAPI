@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SocialNetworkAPI.Dtos;
 using SocialNetworkAPI.Models;
 using SocialNetworkAPI.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SocialNetworkAPI.Controllers
 {
@@ -23,18 +22,25 @@ namespace SocialNetworkAPI.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet]
-        [Route("{id:guid}")]
-        //ActionResult should always be used except for the Get collections that only returns OK. 
-        public ActionResult<User> GetUserById(Guid id)
+
+        [HttpPost]
+        //passes in UserDto so I dont pass in the Id
+        public ActionResult CreateUser(UserDto userDto)
         {
-            var user = _userRepository.GetUserById(id);
-           if (user is null)
+            if (userDto is null)
             {
-                return NotFound($"The userId: '{id}' you are looking for could not be found in the system");
+                return BadRequest("Missing User");
             }
-            return user;  
+            var nonUnique = _userRepository.NonUniqueUserName(userDto);
+            if (nonUnique)
+            {
+                return BadRequest("The chosen user name already exists. Please re-enter a new user name");
+            }
+            var user = _userRepository.Add(userDto);
+            //the user was created. To get the user use the method {GetUser} with the ID that was created. {user] is what was created
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
+
 
         [HttpGet]
         public IEnumerable<User> GetUsers()
@@ -43,8 +49,18 @@ namespace SocialNetworkAPI.Controllers
         }
 
 
-        
-
-       
+        [HttpGet]
+        [Route("{id:guid}")]
+        //ActionResult should always be used except for the Get collections that only returns OK. 
+        public ActionResult<User> GetUser(Guid id)
+        {
+            var user = _userRepository.GetUserById(id);
+           if (user is null)
+            {
+               //return 404
+                return NotFound($"The userId: '{id}' you are looking for could not be found in the system");
+            }
+            return user;  
+        }
     }
 }
